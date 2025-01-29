@@ -1,0 +1,22 @@
+_base_: '../Base/Base_Sup_Mono_Depth.yaml'
+
+model:
+  name: "MSDepth"
+  eval_mode: 'depth' 
+  mode: "newcrf"
+  
+  encoder: 'large07' #['base07, large07']
+  pre_trained: False
+  ckpt_path: './pt_weights/swin_large_patch4_window7_224_22k.pth' 
+  min_depth: 0.1
+  max_depth: 100.0
+  fuse_layer: 'L1234'
+
+  # loss option
+  sup_depth_weight: 1.0 # supervised loss weight
+  smooth_weight: 0 # smoothness loss weight
+  consistency_weight: 0.01 # feature consistency loss weight 
+  consis_idx: ['3'] # 0,1,2,3
+  geometry_weight: 0.5 # geometric consistency loss weight
+  consist_balance_weight: 0.5
+  flag_fuse: False
